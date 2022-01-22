@@ -1,13 +1,9 @@
 const { Router } = require("express");
 const router = Router();
 
-router.get("/", (req, res) => {
-  const respuesta = {
-    status: "ok",
-    message: "Get platillos",
-  };
-  res.status(200).json(respuesta);
-});
+const { getPlatillos } = require("../controllers/platillos.js");
+
+router.get("/", getPlatillos);
 
 router.get("/:id", (req, res) => {
   const respuesta = {
