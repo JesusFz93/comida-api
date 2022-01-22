@@ -29,6 +29,32 @@ const getPlatillos = (req, res) => {
   return res.json(resultado);
 };
 
+const  detalle = (req, res) => {
+  const id = req.params.id;
+  const buscarPorId = DB.find((platillo) => platillo.id.toString() === id);
+
+  if (buscarPorId) {
+    return res.json(buscarPorId);
+  } else {
+    return res.status(404).send();
+  }
+};
+
+const guardaPlatillo = (req, res) => {
+  const alta = req.body;
+  const agregar = {
+    id: DB.length + 1,
+    platillo: alta.platillo,
+    descripcion: alta.descripcion,
+  };
+
+  DB.push(agregar);
+
+  return res.status(201).json();
+};
+
 module.exports = {
   getPlatillos,
+  detalle,
+  guardaPlatillo
 };
